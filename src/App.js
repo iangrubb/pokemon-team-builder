@@ -11,12 +11,20 @@ import pokemonData from './helpers/pokemonData'
 
 export default class App extends Component {
 
-  test = {test: "this"}
-
   state = { selected: 0, team: [] }
 
   setSelected = idx => () => this.setState({selected: idx})
 
+  addToTeam = idx => () => {
+    if (!this.state.team.find(n => n === idx + 1) && this.state.team.length < 6) {
+      this.setState({team: [...this.state.team, idx + 1] })
+    }
+  }
+
+  removeFromTeam = idx => () => {
+    this.setState({team: this.state.team.filter(n => n !== idx)})
+  }
+  
   render() {
       return (
         <Container>
@@ -27,12 +35,13 @@ export default class App extends Component {
           </PokemonList>
           <PokemonDisplay>
             {pokemonData.map((pokemon, idx) =>
-              <DisplayedPokemon key={idx} {...pokemon} selected={idx === this.state.selected}  />
+              <DisplayedPokemon key={idx} {...pokemon} selected={idx === this.state.selected} clickHandler={this.addToTeam(idx)} />
             )}
           </PokemonDisplay>
           <PokemonTeam>
-           
-
+            {pokemonData.map((pokemon, idx) => 
+              <TeamPokemon key={idx} {...pokemon} position={ this.state.team.indexOf(idx + 1) }  />
+            )}
           </PokemonTeam>
         </Container>
       )
@@ -80,4 +89,7 @@ const PokemonDisplay = styled.div`
 const PokemonTeam = styled.div`
   grid-row: 2 / 3;
   grid-column: 2 / 3;
+
+  overflow: scroll;
+  position: relative;
 `

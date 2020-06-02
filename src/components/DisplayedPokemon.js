@@ -10,13 +10,13 @@ import { gradientForTypes, colorOfType } from '../helpers/pokemonDisplayHelpers'
 
 export default function DisplayedPokemon(props) {
 
-    const { species, level, types, stats, selected} = props
+    const { species, level, types, stats, selected, clickHandler} = props
     
     return (
 
         <Transition in={selected} timeout={200} mountOnEnter unmountOnExit >
             { transition_state => (
-                <Container selected={selected} transition_state={transition_state}>
+                <Container selected={selected} transition_state={transition_state} onClick={clickHandler}>
                 <PokemonBasics >
                     <PokemonSpecies>{species}</PokemonSpecies>
                     <Level>Lv. {level}</Level>
