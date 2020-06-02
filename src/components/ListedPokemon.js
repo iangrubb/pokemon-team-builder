@@ -2,56 +2,7 @@ import React, { Component } from 'react'
 
 import styled from 'styled-components'
 
-const colorOfType = type => {
-    switch(type) {
-        case "normal":
-            return "#E6DDCB"
-        case "fire":
-            return "#D89E9C"
-        case "water":
-            return "#B3BDE0"
-        case "grass":
-            return "#A1D4A8"
-        case "electric":
-            return "#E9D795"
-        case "psychic":
-            return "#DAA9C5"
-        case "ice":
-            return "#D2E5EE"
-        case "fighting":
-            return "#D3A182"
-        case "flying":
-            return "#C8C8E0"
-        case "poison":
-            return "#BAA4C6"
-        case "ground":
-            return "#E8D2C0"
-        case "rock":
-            return "#D9C492"
-        case "bug":
-            return "#DCE2AC"
-        case "ghost":
-            return "#D0C7E0"
-        case "steel":
-            return "#ADADBD"
-        case "dragon":
-            return "#BFB9E9"
-        case "dark":
-            return "#797788"
-        case "fairy":
-            return "#ECC0CA"
-        default:
-            return "white"
-    }
-}
-
-const determineBackground = types => {
-    if (types.length === 1) {
-        return colorOfType(types[0])
-    } else {
-        return `linear-gradient(45deg, ${colorOfType(types[0])} 20%, ${colorOfType(types[1])} 80%)`
-    }
-}
+import { colorOfType, gradientForTypes } from '../helpers/pokemonDisplayHelpers'
 
 export default class ListedPokemon extends Component {
 
@@ -59,8 +10,8 @@ export default class ListedPokemon extends Component {
 
     render() {
         return (
-            <Frame types={this.props.types} >
-                <Body>
+            <Frame types={this.props.types} onClick={this.props.clickHandler} selected={this.props.selected}>
+                <Body selected={this.props.selected}>
                     <PokemonLevel>{this.props.level}</PokemonLevel>
                     <PokemonInfo>
                         <PokemonSpecies>{this.props.species}</PokemonSpecies>
@@ -78,11 +29,14 @@ const Frame = styled.div`
     width: 80%;
     height: 100px;
     margin: 20px 10%;
+    padding: 8px;
 
-    background: ${props => determineBackground(props.types)};
+    background: ${props => gradientForTypes(props.types)};
 
     border-radius: 16px;
-    box-shadow: 4px 4px 4px #aaa;
+    box-shadow: 2px 2px 4px #aaa;
+
+    transform: ${props => props.selected ? 'translateX(5%)' : null};
 
     cursor: pointer;
 
@@ -93,7 +47,7 @@ const Frame = styled.div`
     transition: all 0.2s ease;
 
     &:hover {
-        transform: scale(1.2);
+        transform: scale(1.15);
         box-shadow: 4px 4px 8px #aaa;
     }
 
@@ -101,12 +55,19 @@ const Frame = styled.div`
 
 const Body = styled.div`
 
-    width: calc(100% - 16px);
-    height: calc(100% - 16px);
+    width: 100%;
+    height: 100%;
     background: white;
     border-radius: 8px;
 
     padding: 0 8px;
+
+    clip-path: ${props => props.selected ?
+        'polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%)' :
+        'polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%)'
+    };
+    
+    transition: all 0.2s ease;
 
     display: flex;
     align-items: center;
@@ -135,8 +96,9 @@ const PokemonInfo = styled.div`
 `
 
 const PokemonGIF = styled.img`
-    height: 60%;
-    
+    width: 25%;
+    margin: 0 8px 0 0;
+
 `
 
 const PokemonSpecies = styled.h3`
