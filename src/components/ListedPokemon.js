@@ -1,27 +1,26 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import styled from 'styled-components'
 
 import { colorOfType, gradientForTypes } from '../helpers/pokemonDisplayHelpers'
 
-export default class ListedPokemon extends Component {
 
+export default function ListedPokemon(props) {
 
+    const { types, level, species, clickHandler, selected } = props
 
-    render() {
-        return (
-            <Frame types={this.props.types} onClick={this.props.clickHandler} selected={this.props.selected}>
-                <Body selected={this.props.selected}>
-                    <PokemonLevel>{this.props.level}</PokemonLevel>
-                    <PokemonInfo>
-                        <PokemonSpecies>{this.props.species}</PokemonSpecies>
-                        { this.props.types.map((type, idx) => <PokemonType key={idx} type={type}>{type}</PokemonType>)}
-                    </PokemonInfo>
-                    <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${this.props.species}.gif`} alt={this.props.species} />
-                </Body>
-            </Frame>
-        )
-    }
+    return (
+        <Frame types={types} onClick={clickHandler} selected={selected}>
+            <Body selected={selected}>
+                <PokemonLevel>{level}</PokemonLevel>
+                <PokemonInfo>
+                    <PokemonSpecies>{species}</PokemonSpecies>
+                    {types.map((type, idx) => <PokemonType key={idx} type={type}>{type}</PokemonType>)}
+                </PokemonInfo>
+                <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${species}.gif`} alt={species} />
+            </Body>
+        </Frame>
+    )
 }
 
 const Frame = styled.div`
@@ -76,13 +75,12 @@ const Body = styled.div`
 `
 
 const PokemonLevel = styled.p`
-
     background: #333;
-    color: white;
-    padding: 8px;
     border-radius: 50%;
-    font-weight: bold;
+    padding: 8px;
 
+    color: white;
+    font-weight: bold;
 `
 
 const PokemonInfo = styled.div`
@@ -98,7 +96,6 @@ const PokemonInfo = styled.div`
 const PokemonGIF = styled.img`
     width: 25%;
     margin: 0 8px 0 0;
-
 `
 
 const PokemonSpecies = styled.h3`

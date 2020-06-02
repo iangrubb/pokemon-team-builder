@@ -13,7 +13,7 @@ export default class App extends Component {
 
   test = {test: "this"}
 
-  state = { selected: 0 }
+  state = { selected: 0, team: [] }
 
   setSelected = idx => () => this.setState({selected: idx})
 
@@ -31,6 +31,7 @@ export default class App extends Component {
             )}
           </PokemonDisplay>
           <PokemonTeam>
+           
 
           </PokemonTeam>
         </Container>
@@ -65,10 +66,6 @@ const PokemonList = styled.div`
 
   overflow: scroll;
   padding: 24px 0;
-
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
 
 `
 
