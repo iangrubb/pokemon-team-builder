@@ -65,7 +65,6 @@ const Value = styled.span`
     left: 0;
     transform: translate(-50%, -50%);
     
-
     background: #333;
     height: 32px;
     width: 32px;

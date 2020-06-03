@@ -22,7 +22,7 @@ export default class App extends Component {
   }
 
   removeFromTeam = idx => () => {
-    this.setState({team: this.state.team.filter(n => n !== idx)})
+    this.setState({team: this.state.team.filter(n => n !== idx + 1)})
   }
   
   render() {
@@ -30,17 +30,33 @@ export default class App extends Component {
         <Container>
           <PokemonList>
             {pokemonData.map((pokemon, idx) =>
-              <ListedPokemon key={idx} {...pokemon} selected={idx === this.state.selected} clickHandler={this.setSelected(idx)} />
+              <ListedPokemon
+                key={idx}
+                {...pokemon}
+                selected={idx === this.state.selected}
+                position={ this.state.team.indexOf(idx + 1)}
+                clickHandler={this.setSelected(idx)}
+              />
             )}
           </PokemonList>
           <PokemonDisplay>
             {pokemonData.map((pokemon, idx) =>
-              <DisplayedPokemon key={idx} {...pokemon} selected={idx === this.state.selected} clickHandler={this.addToTeam(idx)} />
+              <DisplayedPokemon
+                key={idx}
+                {...pokemon}
+                selected={idx === this.state.selected}
+                clickHandler={this.addToTeam(idx)}
+              />
             )}
           </PokemonDisplay>
           <PokemonTeam>
             {pokemonData.map((pokemon, idx) => 
-              <TeamPokemon key={idx} {...pokemon} position={ this.state.team.indexOf(idx + 1) }  />
+              <TeamPokemon
+                key={idx}
+                {...pokemon}
+                clickHandler={this.removeFromTeam(idx)}
+                position={ this.state.team.indexOf(idx + 1) }
+              />
             )}
           </PokemonTeam>
         </Container>

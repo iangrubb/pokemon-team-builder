@@ -7,7 +7,7 @@ import { colorOfType, gradientForTypes } from '../helpers/pokemonDisplayHelpers'
 
 export default function ListedPokemon(props) {
 
-    const { types, level, species, clickHandler, selected } = props
+    const { types, level, species, clickHandler, selected, position } = props
 
     return (
         <Frame types={types} onClick={clickHandler} selected={selected}>
@@ -19,6 +19,7 @@ export default function ListedPokemon(props) {
                 </PokemonInfo>
                 <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${species}.gif`} alt={species} />
             </Body>
+            <TeamNumber onTeam={position >= 0 }>{position >= 0 ? position + 1 : null}</TeamNumber>
         </Frame>
     )
 }
@@ -49,6 +50,8 @@ const Frame = styled.div`
         transform: scale(1.15);
         box-shadow: 4px 4px 8px #aaa;
     }
+
+    position: relative;
 
 `
 
@@ -108,4 +111,28 @@ const PokemonType = styled.h4`
     margin: 2px;
     color: ${props => colorOfType(props.type)};
     filter: saturate(200%) brightness(60%);
+`
+
+const TeamNumber = styled.div`
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    transform: translate(-30%, -30%) scale(${props => props.onTeam ? '1' : '0'}) ;
+    transition: transform 0.2s ease;
+
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #333;
+    box-shadow: 2px 2px 4px #aaa;
+
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 `

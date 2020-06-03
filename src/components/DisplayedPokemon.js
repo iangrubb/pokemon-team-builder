@@ -14,7 +14,7 @@ export default function DisplayedPokemon(props) {
     
     return (
 
-        <Transition in={selected} timeout={200} mountOnEnter unmountOnExit >
+        <Transition in={selected} timeout={100} mountOnEnter unmountOnExit >
             { transition_state => (
                 <Container selected={selected} transition_state={transition_state} onClick={clickHandler}>
                 <PokemonBasics >
@@ -36,7 +36,7 @@ export default function DisplayedPokemon(props) {
     )
 }
 
-const transitionAcross = state => {
+const transitionHandler = state => {
     switch (state) {
         case "entered":
             return '50%'
@@ -64,11 +64,11 @@ const Container = styled.div`
     cursor: pointer;
 
     position: absolute;
-    top: ${props => transitionAcross(props.transition_state)};
+    top: ${props => transitionHandler(props.transition_state)};
     left: 50%;
     transform: translate(-50%, -50%);
 
-    transition: top 0.4s ease;
+    transition: top 0.2s ease;
 
 
     z-index: ${props => props.selected ? '2' : '1' };
@@ -118,7 +118,7 @@ const Type = styled.h3`
     color: white;
     font-weight: 900;
     font-size: 20px;
-    text-shadow: 2px 2px #333;
+    text-shadow: 1px 1px 1px #555;
 
 `
 
@@ -126,7 +126,7 @@ const PokemonStatsFrame = styled.div`
 
     height: 100%;
     width: 360px;
-    padding: 16px;
+    padding: 8px;
 
     background: ${props => gradientForTypes(props.types)};
     border-radius: 16px;
