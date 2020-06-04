@@ -18,8 +18,8 @@ export default function DisplayedPokemon(props) {
             { transition_state => (
                 <Container selected={selected} transition_state={transition_state} onClick={clickHandler}>
                 <PokemonBasics >
-                    <PokemonSpecies>{species}</PokemonSpecies>
-                    <Level>Lv. {level}</Level>
+                    <h2>{species}</h2>
+                    <h4>Lv. {level}</h4>
                     <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${species}.gif`} alt={species}/>
                     <Types>
                         {types.map((type, idx) => <Type key={idx} type={type}>{type}</Type>)}
@@ -49,108 +49,92 @@ const transitionHandler = state => {
 
 const Container = styled.div`
 
-    height: 320px;
-
+    /* Arranges children in a row */
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 
-    background: white;
+    /* Card shape and color */
+    height: 320px;
+    width: 640px;
     padding: 32px;
     border-radius: 16px;
+    background: var(--main-ui-color);
+    box-shadow: var(--diffuse-shadow);
 
-    box-shadow: 4px 4px 16px #aaa;
-
+    /* Makes card look clickable */
     cursor: pointer;
 
+    /* Animates element within its parent */
     position: absolute;
     top: ${props => transitionHandler(props.transition_state)};
     left: 50%;
     transform: translate(-50%, -50%);
-
     transition: top 0.2s ease;
-
-
-    z-index: ${props => props.selected ? '2' : '1' };
-
 `
 
 const PokemonBasics = styled.div`
 
-    margin: 0 32px;
-
+    /* Lays out children in a column */
     display: flex;
     flex-direction: column;
     align-items: center;
-
-`
-
-const PokemonSpecies = styled.h2`
-    margin: 0;
-    color: #333;
-    text-transform: capitalize;
-`
-
-const Level = styled.h4`
-    margin: 0;
-    color: #333;
 `
 
 const PokemonGIF = styled.img`
+
+    /* Fits the gif nicely in its parent */
     margin: 32px 0 32px 8px;
     transform: scale(1.4);
 `
 
 const Types = styled.div`
+
+    /* Lays out types in a row */
     display: flex;
     justify-content: center;
 `
 
-const Type = styled.h3`
+const Type = styled.h4`
 
-    margin: 0 8px;
-
-    background: ${props => colorOfType(props.type)};
-    padding: 8px;
+    /* Type display shape and style */
+    margin: 0 4px;
+    padding: 4px;
     border-radius: 8px;
-    box-shadow: 2px 2px 4px #aaa;
+    box-shadow: var(--sharp-shadow);
+    background: ${props => colorOfType(props.type)};
 
-    color: white;
-    font-weight: 900;
-    font-size: 20px;
+    /* Type text style */
+    color: var(--main-ui-color);
+    font-weight: 800;
+    font-size: 24px;
     text-shadow: 1px 1px 1px #555;
-
 `
 
 const PokemonStatsFrame = styled.div`
 
+    /* Stat frame shape and style */
     height: 100%;
     width: 360px;
     padding: 8px;
-
     background: ${props => gradientForTypes(props.types)};
     border-radius: 16px;
-    box-shadow: 2px 2px 4px #aaa;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+    box-shadow: var(--diffuse-shadow);
 `
 
 const PokemonStats = styled.div`
 
+    /* Main stat region shape and style */
     width: 100%;
     height: 100%;
-    background: white;
-
+    background: var(--main-ui-color);
     border-radius: 8px;
-    box-shadow: inset 2px 2px 4px #aaa;
+    box-shadow: var(--diffuse-inset-shadow);
 
+    /* Determines position of stat elements */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-
 `
 

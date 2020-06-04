@@ -13,10 +13,8 @@ export default function ListedPokemon(props) {
         <Frame types={types} onClick={clickHandler} selected={selected}>
             <Body selected={selected}>
                 <PokemonLevel>{level}</PokemonLevel>
-                <PokemonInfo>
-                    <PokemonSpecies>{species}</PokemonSpecies>
-                    {types.map((type, idx) => <PokemonType key={idx} type={type}>{type}</PokemonType>)}
-                </PokemonInfo>
+                <h3>{species}</h3>
+                {types.map((type, idx) => <PokemonType key={idx} type={type}>{type}</PokemonType>)}
                 <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${species}.gif`} alt={species} />
             </Body>
             <TeamNumber onTeam={position >= 0 }>{position >= 0 ? position + 1 : null}</TeamNumber>
@@ -26,111 +24,118 @@ export default function ListedPokemon(props) {
 
 const Frame = styled.div`
 
+    /* Sets card size and centers it in parent list */
     width: 80%;
     height: 100px;
     margin: 20px 10%;
+    
+    /* Sets card shape and border color */
     padding: 8px;
-
+    border-radius: 16px;
+    box-shadow: var(--sharp-shadow);
     background: ${props => gradientForTypes(props.types)};
 
-    border-radius: 16px;
-    box-shadow: 2px 2px 4px #aaa;
-
-    transform: ${props => props.selected ? 'translateX(5%)' : null};
-
+    /* Makes card look clickable */
     cursor: pointer;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+    /* Hover styling */
     transition: all 0.2s ease;
-
     &:hover {
         transform: scale(1.15);
-        box-shadow: 4px 4px 8px #aaa;
+        box-shadow: var(--diffuse-shadow);
     }
 
-    position: relative;
+    /* Shift the selected item right */
+    transform: ${props => props.selected ? 'translateX(5%)' : null};
 
+    /* Allows absolute placement of team number */
+    position: relative;
 `
 
 const Body = styled.div`
 
+    /* Style for interior of card */
     width: 100%;
     height: 100%;
-    background: white;
+    background: var(--main-ui-color);
     border-radius: 8px;
 
-    padding: 0 8px;
-
+    /* Makes arrow when pokemon is selected */
+    transition: all 0.2s ease;
     clip-path: ${props => props.selected ?
         'polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%)' :
         'polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%)'
     };
     
-    transition: all 0.2s ease;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-`
-
-const PokemonLevel = styled.p`
-    background: #333;
-    border-radius: 50%;
-    padding: 8px;
-
-    color: white;
-    font-weight: bold;
-`
-
-const PokemonInfo = styled.div`
-
+    /* Positioning for children */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-
+    position: relative;
 `
+
+const PokemonLevel = styled.h4`
+
+    /* Places level on the parent */
+    position: absolute;
+    top: 50%;
+    left: 4%;
+    transform: translateY(-50%);
+    z-index: -1;
+
+    /* Puts the level in a circle */
+    background: var(--contrast-ui-color);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: var(--sharp-contrast-shadow);
+
+    /* Changes the color of the level */
+    color: var(--main-ui-color);
+`
+
 
 const PokemonGIF = styled.img`
-    width: 25%;
-    margin: 0 8px 0 0;
-`
 
-const PokemonSpecies = styled.h3`
-    margin: 2px;
-    color: #333;
-    text-transform: capitalize;
+    /* Places gif on the parent */
+    position: absolute;
+    top: 50%;
+    right: 3%;
+    transform: translateY(-50%);
+    z-index: -1;
+
+    /* Sets size of gif */
+    width: 20%;
 `
 
 const PokemonType = styled.h4`
-    margin: 2px;
+
+    /* Use a darkened version of the color that corresponds to the type */
     color: ${props => colorOfType(props.type)};
-    filter: saturate(200%) brightness(60%);
+    filter: saturate(150%) brightness(70%);
 `
 
 const TeamNumber = styled.div`
 
+    /* Places the team number at the top left of the card */
     position: absolute;
-
     top: 0;
     left: 0;
 
-    transform: translate(-30%, -30%) scale(${props => props.onTeam ? '1' : '0'}) ;
+    /* Number pops in and out when pokemon is added to or removed from team */
     transition: transform 0.2s ease;
-
+    transform: translate(-30%, -30%) scale(${props => props.onTeam ? '1' : '0'}) ;
+    
+    /* Number circle styling */
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: #333;
-    box-shadow: 2px 2px 4px #aaa;
+    background: var(--contrast-ui-color);
+    box-shadow: var(--sharp-contrast-shadow);
 
-    color: white;
-
+    /* Number text styling and centering */
+    color: var(--main-ui-color);
+    font-weight: 800;
     display: flex;
     justify-content: center;
     align-items: center;

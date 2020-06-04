@@ -8,7 +8,6 @@ import TeamPokemon from './components/TeamPokemon'
 
 import pokemonData from './helpers/pokemonData'
 
-
 export default class App extends Component {
 
   state = { selected: 0, team: [] }
@@ -27,7 +26,7 @@ export default class App extends Component {
   
   render() {
       return (
-        <Container>
+        <Page>
           <PokemonList>
             {pokemonData.map((pokemon, idx) =>
               <ListedPokemon
@@ -54,58 +53,66 @@ export default class App extends Component {
               <TeamPokemon
                 key={idx}
                 {...pokemon}
+                position={this.state.team.indexOf(idx + 1)}
                 clickHandler={this.removeFromTeam(idx)}
-                position={ this.state.team.indexOf(idx + 1) }
               />
             )}
           </PokemonTeam>
-        </Container>
+        </Page>
       )
   }
 }
 
-const Container = styled.div`
+const Page = styled.div`
 
+  /* Page takes up the entire screen */
   width: 100vw;
   height: 100vh;
-  background: rgb(242, 242, 242);
+  background: var(--main-ui-color);
 
+  /* Page is a 2 x 2 grid */
   display: grid;
   grid-template-rows: 1fr 320px;
   grid-template-columns: 320px 1fr;
 
-  background: white;
-
+  /* Styling that applies to all three grid regions */
   & > * {
-    background: rgb(240, 240, 240);
-    box-shadow: inset 4px 4px 8px 2px #ddd;
+    background: var(--variant-ui-color);
+    box-shadow: var(--diffuse-inset-shadow);
     border-radius: 32px;
     margin: 16px;
   }
-
 `
 
 const PokemonList = styled.div`
+
+  /* Takes up both rows of the first column */
   grid-row: 1 / 3;
   grid-column: 1 / 2;
 
+  /* Makes Pokemon fit nicely within the list */
   overflow: scroll;
   padding: 24px 0;
-
 `
 
 const PokemonDisplay = styled.div`
+
+  /* Takes up the first row of the second column */
   grid-row: 1 / 2;
   grid-column: 2 / 3;
   
+  /* Allows animated transitions within this region */
   overflow: hidden;
   position: relative;
 `
 
 const PokemonTeam = styled.div`
+
+  /* Takes up the second row of the second column */
   grid-row: 2 / 3;
   grid-column: 2 / 3;
 
-  overflow: scroll;
+  /* Allows animated transitions within this region */
+  overflow: hidden;
   position: relative;
 `
