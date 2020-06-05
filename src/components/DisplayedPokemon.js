@@ -18,19 +18,19 @@ export default function DisplayedPokemon(props) {
         <Transition in={selected} timeout={100} mountOnEnter unmountOnExit >
             { transition_state => (
                 <Container selected={selected} transition_state={transition_state} onClick={clickHandler}>
-                <PokemonBasics >
-                    <h2>{species}</h2>
-                    <h4>Lv. {level}</h4>
-                    <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${species}.gif`} alt={species}/>
-                    <Types>
-                        {types.map((type, idx) => <Type key={idx} type={type}>{type}</Type>)}
-                    </Types>
-                </PokemonBasics>
-                <PokemonStatsFrame types={types}>
-                    <PokemonStats>
-                        { Object.keys(stats).map((stat, idx) => <StatBar key={idx} stat={stat} value={stats[stat]} types={types} />) }
-                    </PokemonStats>
-                </PokemonStatsFrame>
+                    <PokemonBasics >
+                        <h2>{species}</h2>
+                        <h4>Lv. {level}</h4>
+                        <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${species}.gif`} alt={species}/>
+                        <Types>
+                            {types.map((type, idx) => <Type key={idx} type={type}>{type}</Type>)}
+                        </Types>
+                    </PokemonBasics>
+                    <PokemonStatsFrame types={types}>
+                        <PokemonStats>
+                            { Object.keys(stats).map((stat, idx) => <StatBar key={idx} stat={stat} value={stats[stat]} types={types} />) }
+                        </PokemonStats>
+                    </PokemonStatsFrame>
                 </Container>
             )}
         </Transition>
@@ -108,7 +108,7 @@ const Type = styled.h4`
     background: ${props => colorOfType(props.type)};
 
     /* Type text style */
-    color: var(--main-ui-color);
+    color: var(--type-contrast-color);
     font-weight: 800;
     font-size: 24px;
     text-shadow: 1px 1px 1px #555;

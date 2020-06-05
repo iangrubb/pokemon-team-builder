@@ -16,6 +16,7 @@ const DayConstants = createGlobalStyle`
     --main-ui-color: #F8F7F7;
     --variant-ui-color: #F0EFEF;
     --contrast-ui-color: #333;
+    --type-contrast-color: #eee;
 
     --diffuse-shadow: 4px 4px 8px 2px #D4CECE;
     --diffuse-inset-shadow: inset 4px 4px 8px 4px #D4CECE;
@@ -26,9 +27,10 @@ const DayConstants = createGlobalStyle`
 
 const NightConstants = createGlobalStyle`
   :root {
-    --main-ui-color: #393839;
+    --main-ui-color: #4D4C4D;
     --variant-ui-color: #2B2A2D;
     --contrast-ui-color: #D7D8DA;
+    --type-contrast-color: #eee;
 
     --diffuse-shadow: 2px 2px 0 1px #D7D8DA;
     --diffuse-inset-shadow: inset 2px 2px 0 1px  #D7D8DA;
@@ -39,18 +41,18 @@ const NightConstants = createGlobalStyle`
 
 export default class App extends Component {
 
-  state = { selected: 0, team: [], light: true }
+  state = { selected: 1, team: [], light: true }
 
-  setSelected = idx => () => this.setState({selected: idx})
+  setSelected = id => () => this.setState({selected: id})
 
-  addToTeam = idx => () => {
-    if (!this.state.team.find(n => n === idx + 1) && this.state.team.length < 6) {
-      this.setState({team: [...this.state.team, idx + 1] })
+  addToTeam = id => () => {
+    if (!this.state.team.find(n => n === id) && this.state.team.length < 6) {
+      this.setState({team: [...this.state.team, id ] })
     }
   }
 
-  removeFromTeam = idx => () => {
-    this.setState({team: this.state.team.filter(n => n !== idx + 1)})
+  removeFromTeam = id => () => {
+    this.setState({team: this.state.team.filter(n => n !== id )})
   }
 
   toggleLight = () => this.setState({light: !this.state.light})
@@ -60,33 +62,33 @@ export default class App extends Component {
         <Page>
           { this.state.light ? <DayConstants/> : <NightConstants/>}
           <PokemonList>
-            {pokemonData.map((pokemon, idx) =>
+            {pokemonData.map(pokemon =>
               <ListedPokemon
-                key={idx}
+                key={pokemon.id}
                 {...pokemon}
-                selected={idx === this.state.selected}
-                position={ this.state.team.indexOf(idx + 1)}
-                clickHandler={this.setSelected(idx)}
+                selected={pokemon.id === this.state.selected}
+                position={ this.state.team.indexOf(pokemon.id)}
+                clickHandler={this.setSelected(pokemon.id)}
               />
             )}
           </PokemonList>
           <PokemonDisplay>
-            {pokemonData.map((pokemon, idx) =>
+            {pokemonData.map(pokemon =>
               <DisplayedPokemon
-                key={idx}
+                key={pokemon.id}
                 {...pokemon}
-                selected={idx === this.state.selected}
-                clickHandler={this.addToTeam(idx)}
+                selected={pokemon.id === this.state.selected}
+                clickHandler={this.addToTeam(pokemon.id)}
               />
             )}
           </PokemonDisplay>
           <PokemonTeam>
-            {pokemonData.map((pokemon, idx) => 
+            {pokemonData.map(pokemon => 
               <TeamPokemon
-                key={idx}
+                key={pokemon.id}
                 {...pokemon}
-                position={this.state.team.indexOf(idx + 1)}
-                clickHandler={this.removeFromTeam(idx)}
+                position={this.state.team.indexOf(pokemon.id)}
+                clickHandler={this.removeFromTeam(pokemon.id)}
               />
             )}
           </PokemonTeam>

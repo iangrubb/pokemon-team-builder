@@ -1,6 +1,7 @@
 
 const pokemonData = [
     {
+        id: 1,
         species: "pikachu",
         types: ["electric"],
         level: 51,
@@ -14,6 +15,7 @@ const pokemonData = [
         }
     },
     {
+        id: 2,
         species: "venusaur",
         types: ["grass", "poison"],
         level: 42,
@@ -27,6 +29,7 @@ const pokemonData = [
         }
     },
     {
+        id: 3,
         species: "omastar",
         types: ["rock", "water"],
         level: 45,
@@ -40,6 +43,7 @@ const pokemonData = [
         }
     },
     {
+        id: 4,
         species: "arcanine",
         types: ["fire"],
         level: 44,
@@ -53,6 +57,7 @@ const pokemonData = [
         }
     },
     {
+        id: 5,
         species: "dewgong",
         types: ["water", "ice"],
         level: 47,
@@ -66,6 +71,7 @@ const pokemonData = [
         }
     },
     {
+        id: 6,
         species: "scyther",
         types: ["bug", "flying"],
         level: 42,
@@ -79,6 +85,7 @@ const pokemonData = [
         }
     },
     {
+        id: 7,
         species: "exeggutor",
         types: ["grass", "psychic"],
         level: 41,
@@ -92,6 +99,7 @@ const pokemonData = [
         }
     },
     {
+        id: 8,
         species: "starmie",
         types: ["water", "psychic"],
         level: 46,
@@ -105,6 +113,7 @@ const pokemonData = [
         }
     },
     {
+        id: 9,
         species: "snorlax",
         types: ["normal"],
         level: 45,
@@ -118,6 +127,7 @@ const pokemonData = [
         }
     },
     {
+        id: 10,
         species: "gyarados",
         types: ["water", "flying"],
         level: 38,
@@ -131,6 +141,7 @@ const pokemonData = [
         }
     },
     {
+        id: 11,
         species: "gengar",
         types: ["ghost", "poison"],
         level: 38,
@@ -144,6 +155,7 @@ const pokemonData = [
         }
     },
     {
+        id: 12,
         species: "aerodactyl",
         types: ["rock", "flying"],
         level: 40,
@@ -157,6 +169,7 @@ const pokemonData = [
         }
     },
     {
+        id: 13,
         species: "dragonair",
         types: ["dragon"],
         level: 43,
@@ -170,6 +183,7 @@ const pokemonData = [
         }
     },
     {
+        id: 14,
         species: "feraligatr",
         types: ["water"],
         level: 42,
@@ -183,6 +197,7 @@ const pokemonData = [
         }
     },
     {
+        id: 15,
         species: "steelix",
         types: ["steel", "ground"],
         level: 41,
@@ -196,6 +211,7 @@ const pokemonData = [
         }
     },
     {
+        id: 16,
         species: "umbreon",
         types: ["dark"],
         level: 44,
@@ -209,6 +225,7 @@ const pokemonData = [
         }
     },
     {
+        id: 17,
         species: "skarmory",
         types: ["steel", "flying"],
         level: 38,
@@ -222,6 +239,7 @@ const pokemonData = [
         }
     },
     {
+        id: 18,
         species: "houndoom",
         types: ["dark", "fire"],
         level: 46,
@@ -235,6 +253,7 @@ const pokemonData = [
         }
     },
     {
+        id: 19,
         species: "heracross",
         types: ["bug", "fighting"],
         level: 41,
@@ -248,6 +267,7 @@ const pokemonData = [
         }
     },
     {
+        id: 20,
         species: "tyranitar",
         types: ["rock", "dark"],
         level: 41,
@@ -261,6 +281,7 @@ const pokemonData = [
         }
     },
     {
+        id: 21,
         species: "blaziken",
         types: ["fire", "fighting"],
         level: 42,
@@ -274,6 +295,7 @@ const pokemonData = [
         }
     },
     {
+        id: 22,
         species: "gardevoir",
         types: ["psychic", "fairy"],
         level: 44,
@@ -287,6 +309,7 @@ const pokemonData = [
         }
     },
     {
+        id: 23,
         species: "flygon",
         types: ["ground", "dragon"],
         level: 45,
@@ -300,6 +323,7 @@ const pokemonData = [
         }
     },
     {
+        id: 24,
         species: "altaria",
         types: ["dragon", "flying"],
         level: 46,
@@ -313,6 +337,7 @@ const pokemonData = [
         }
     },
     {
+        id: 25,
         species: "metagross",
         types: ["steel", "psychic"],
         level: 45,

@@ -17,7 +17,7 @@ export default function ListedPokemon(props) {
                 {types.map((type, idx) => <PokemonType key={idx} type={type}>{type}</PokemonType>)}
                 <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${species}.gif`} alt={species} />
             </Body>
-            <TeamNumber onTeam={position >= 0 }>{position >= 0 ? position + 1 : null}</TeamNumber>
+            <TeamNumber onTeam={position > -1 }>{position > -1 ? position + 1 : null}</TeamNumber>
         </Frame>
     )
 }
