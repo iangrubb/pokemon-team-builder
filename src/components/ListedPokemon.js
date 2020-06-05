@@ -39,7 +39,7 @@ const Frame = styled.div`
     cursor: pointer;
 
     /* Hover styling */
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     &:hover {
         transform: scale(1.15);
         box-shadow: var(--diffuse-shadow);
@@ -61,7 +61,7 @@ const Body = styled.div`
     border-radius: 8px;
 
     /* Makes arrow when pokemon is selected */
-    transition: all 0.2s ease;
+    transition: clip-path 0.2s ease;
     clip-path: ${props => props.selected ?
         'polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%)' :
         'polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%)'

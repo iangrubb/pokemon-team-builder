@@ -39,7 +39,7 @@ const Label = styled.span`
 
     /* Font styling */
     font-weight: 700;
-    color: #333;
+    color: var(--contrast-ui-color);
 `
 
 const BarFrame = styled.span`

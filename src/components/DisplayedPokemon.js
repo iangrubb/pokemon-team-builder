@@ -9,8 +9,9 @@ import StatBar from './StatBar'
 import { gradientForTypes, colorOfType } from '../helpers/pokemonDisplayHelpers'
 
 export default function DisplayedPokemon(props) {
+    
 
-    const { species, level, types, stats, selected, clickHandler} = props
+    const { species, level, types, stats, selected, clickHandler } = props
     
     return (
 
@@ -38,12 +39,14 @@ export default function DisplayedPokemon(props) {
 
 const transitionHandler = state => {
     switch (state) {
+        case "entering":
+            return '-50%'
         case "entered":
             return '50%'
         case "exiting":
             return '150%'
         default:
-            return '-50%'
+            return '50%'
     }
 }
 
@@ -119,7 +122,6 @@ const PokemonStatsFrame = styled.div`
     padding: 8px;
     background: ${props => gradientForTypes(props.types)};
     border-radius: 16px;
-    box-shadow: var(--diffuse-shadow);
 `
 
 const PokemonStats = styled.div`
@@ -129,7 +131,6 @@ const PokemonStats = styled.div`
     height: 100%;
     background: var(--main-ui-color);
     border-radius: 8px;
-    box-shadow: var(--diffuse-inset-shadow);
 
     /* Determines position of stat elements */
     display: flex;
@@ -137,4 +138,6 @@ const PokemonStats = styled.div`
     justify-content: space-evenly;
     align-items: center;
 `
+
+
 
