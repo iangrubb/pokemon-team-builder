@@ -7,7 +7,7 @@ import { colorOfType, gradientForTypes } from '../helpers/pokemonDisplayHelpers'
 
 export default function ListedPokemon(props) {
 
-    const { types, level, species, clickHandler, selected, position } = props
+    const { types, level, species, clickHandler, selected, teamPosition } = props
 
     return (
         <Frame types={types} onClick={clickHandler} selected={selected}>
@@ -17,7 +17,7 @@ export default function ListedPokemon(props) {
                 {types.map((type, idx) => <PokemonType key={idx} type={type}>{type}</PokemonType>)}
                 <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${species}.gif`} alt={species} />
             </Body>
-            <TeamNumber onTeam={position > -1 }>{position > -1 ? position + 1 : null}</TeamNumber>
+            {/* <TeamNumber onTeam={teamPosition > -1 }>{teamPosition > -1 ? teamPosition + 1 : null}</TeamNumber> */}
         </Frame>
     )
 }
@@ -33,7 +33,7 @@ const Frame = styled.div`
     padding: 8px;
     border-radius: 16px;
     box-shadow: var(--sharp-shadow);
-    background: ${props => gradientForTypes(props.types)};
+    background: black;
 
     /* Makes card look clickable */
     cursor: pointer;
@@ -112,7 +112,7 @@ const PokemonType = styled.h4`
 
     /* Use a darkened version of the color that corresponds to the type */
     color: ${props => colorOfType(props.type)};
-    filter: saturate(150%) brightness(70%);
+    filter: var(--contrast-filter);
 `
 
 const TeamNumber = styled.div`

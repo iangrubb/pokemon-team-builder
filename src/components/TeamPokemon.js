@@ -83,6 +83,6 @@ const Type = styled.h4`
 
     /* Use a darkened version of the color that corresponds to the type */
     color: ${props => colorOfType(props.type)};
-    filter: saturate(150%) brightness(70%);
+    filter: var(--contrast-filter);
 
 `

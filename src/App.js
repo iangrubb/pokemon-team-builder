@@ -18,6 +18,8 @@ const DayConstants = createGlobalStyle`
     --contrast-ui-color: #333;
     --type-contrast-color: #eee;
 
+    --contrast-filter: saturate(150%) brightness(70%);
+
     --diffuse-shadow: 4px 4px 8px 2px #D4CECE;
     --diffuse-inset-shadow: inset 4px 4px 8px 4px #D4CECE;
     --sharp-shadow: 2px 2px 4px #B5AAAA;
@@ -31,6 +33,8 @@ const NightConstants = createGlobalStyle`
     --variant-ui-color: #2B2A2D;
     --contrast-ui-color: #D7D8DA;
     --type-contrast-color: #eee;
+
+    --contrast-filter: saturate(60%) brightness(120%);
 
     --diffuse-shadow: 2px 2px 0 1px #D7D8DA;
     --diffuse-inset-shadow: inset 2px 2px 0 1px  #D7D8DA;
@@ -60,37 +64,37 @@ export default class App extends Component {
   render() {
       return (
         <Page>
-          { this.state.light ? <DayConstants/> : <NightConstants/>}
+          <DayConstants/>
           <PokemonList>
             {pokemonData.map(pokemon =>
               <ListedPokemon
                 key={pokemon.id}
                 {...pokemon}
                 selected={pokemon.id === this.state.selected}
-                position={ this.state.team.indexOf(pokemon.id)}
+                teamPosition={ this.state.team.indexOf(pokemon.id)}
                 clickHandler={this.setSelected(pokemon.id)}
               />
             )}
           </PokemonList>
           <PokemonDisplay>
-            {pokemonData.map(pokemon =>
+            {/* {pokemonData.map(pokemon =>
               <DisplayedPokemon
                 key={pokemon.id}
                 {...pokemon}
                 selected={pokemon.id === this.state.selected}
                 clickHandler={this.addToTeam(pokemon.id)}
               />
-            )}
+            )} */}
           </PokemonDisplay>
           <PokemonTeam>
-            {pokemonData.map(pokemon => 
+            {/* {pokemonData.map(pokemon => 
               <TeamPokemon
                 key={pokemon.id}
                 {...pokemon}
                 position={this.state.team.indexOf(pokemon.id)}
                 clickHandler={this.removeFromTeam(pokemon.id)}
               />
-            )}
+            )} */}
           </PokemonTeam>
           <StyleToggler onClick={this.toggleLight}><Bulb/></StyleToggler>
         </Page>

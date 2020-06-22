@@ -10,7 +10,6 @@ import { gradientForTypes, colorOfType } from '../helpers/pokemonDisplayHelpers'
 
 export default function DisplayedPokemon(props) {
     
-
     const { species, level, types, stats, selected, clickHandler } = props
     
     return (
