@@ -25,8 +25,8 @@ export default function TeamPokemon(props) {
 
 // Position isn't available while exiting
 
-const transitionHandler = (state, position) => {
-    switch (state) {
+const transitionHandler = (transitionState, position) => {
+    switch (transitionState) {
         case "entered":
             return `${3 + 16 * position}%`
         case "exiting":
@@ -49,7 +49,7 @@ const Container = styled.div`
     cursor: pointer;
 
     /* Animates element within its parent */
-    transition: left 0.2s ease;
+    
     position: absolute;
     top: 10%;
     left: 3%;

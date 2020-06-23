@@ -153,31 +153,60 @@ The current state gets passed in the ```transition_state``` variable and can be 
 
 Note: the only child of ```Transition``` is a function. This may look weird, but it's actually a common React technique called the Render Props Pattern. If you're curious about why this works, it's worth looking into the pattern as it's used in other contexts.
 
+In our case, we'll wrap the ```DisplayedPokemon``` JSX in the following code:
 
-
-
-
-## later
-
-placing team pokemon cards
-
-
-Placement of elements:
-left: ${props => props.position > -1 ? 3 + 16 * props.position : 110}%;
-
-
-Pass transition state prop
-
- <Transition in={position > -1} timeout={200} mountOnEnter unmountOnExit>
+```html
+    <Transition in={selected} timeout={100} mountOnEnter unmountOnExit >
     { transition_state => (
-        <BaseComponent>
-    )}
-</Transition>
+           <!-- Everything Else -->
+       )}
+   </Transition>
+```
 
-${props => transitionHandler(props.transition_state, props.position)}
+The props ```mountOnEnter``` and ```unmountOnExit``` modify how transition works so that instead of there being an ```exited``` state, the component will be removed from the dom whenever it would have been in this state.
 
-z-index: ${props => props.transition_state === "exiting" ? 1 : 2};
+Now we just need to plug the ```transition_state``` into a styled component. Let's add this to the ```Container```:
+
+```
+    top: ${props => transitionHandler(props.transition_state)};
+```
+
+I've already provided the ```transitionHandler``` function, which will move the component from top to bottom as it enters, exists, and then exits.
 
 
+## Dynamic Placement through Styled Components
 
-   
+Let's bring this all together by rendering a ```TeamPokemon``` for each pokemon on the user's team.
+
+In order to determine the position that each of these cards should end up, we can do a bit of multiplication in the container component:
+
+```
+    transition: left 0.2s ease;
+    left: ${props => props.position > -1 ? 3 + 16 * props.position : 110}%;
+```
+
+This will slide each card into and out of its appropriate position. I've chosen numbers so that six cards (the max number) can just take up the space with proper spacing between them.
+
+But let's use React Transition Group to make this even better. We can wrap the component like this:
+
+```html
+    <Transition in={position > -1} timeout={200} mountOnEnter unmountOnExit>
+       { transition_state => (
+           <!-- Everything Else -->
+       )}
+    </Transition>
+```
+
+and now we can calculate the appropriate distance to the left based on both the transition state and targeted position of a card, by adding this to ```Containter```:
+
+```
+    ${props => transitionHandler(props.transition_state, props.position)}
+```
+
+For one final touch, let's make it so that a card that's leaving exists behind whatever cards remain. To do this, we can make the `z-index` of a card depend on its transition state, by adding this to ```Containter```: 
+
+```
+    z-index: ${props => props.transition_state === "exiting" ? 1 : 2};
+```
+
+
