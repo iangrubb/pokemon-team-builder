@@ -86,57 +86,72 @@ Now if we pass a types prop to ```Frame``` and a type prop to ```PokemonType``` 
 
 Notice that we interpolate *functions* from props onto string values. This is just how Styled Components is built to work. We couldn't just reference something like ```props.types``` directly, since props aren't defined in the context where we define a Styled Component.
 
-We can also style UI related state this way, such as the currently selected pokemon. 
+We can also style UI related state this way, such as the currently selected pokemon. To do this, pass a ```selected``` prop to ```Frame``` and ```Body```, add this style to ```Frame```
 
+```
+    ${props => props.selected ? 'transform: translateX(5%);' : null}
+```
 
+and this style to ```Body```:
 
-Styles based on UI Changes
-
-transform: ${props => props.selected ? 'translateX(5%)' : null};
-
-
-
- /* Makes arrow when pokemon is selected */
-transition: clip-path 0.2s ease;
-clip-path: ${props => props.selected ?
+```
+    transition: clip-path 0.2s ease;
+    clip-path: ${props => props.selected ?
         'polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%)' :
         'polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%)'
     };
-
-
+```
 
 
 ## Toggling Global Styles
 
+Let's enable day and night mode toggling next. Styled Components provides a ```createGlobalStyle``` export for creating styles that aren't associated with a specific component. I'm currently using this in ```App``` to create a component ```DayConstants``` that defines a set of CSS variables. Toggling day to night is as simple as toggling between this and a ```NightConstants``` component that assigns the same variables different values. So where ```DayConstants``` is currently found in ```App```, we put:
+
+```html
+    {this.state.light ? <DayConstants/> : <NightConstants/>}
+```
+
+## Card Sliding with CSS Transitions
+
+Next, let's try to have the ```DisplayedPokemon``` slide in and out when a pokemon is selected. I'm currently using absolute positioning on this component, so we can slide the whole card up and down by transitioning between different ```top``` values. The basic strategy is to hide all the cards just off screen except the card of the selected pokemon. We can do that by adding the style:
+
+```
+    transition: top 0.2s ease;
+    top: ${props => props.selected ? '50%' : '-50%'};
+```
+
+and passing a ```selected``` prop to ```Container```.
+
+This works, but has a couple issues:
+
+1. We're unnecessarily rendering many elements off screen.
+2. We can't animate out in a different direction than we animate in.
+   
+Let's work on these next.
 
 
+## Card Sliding with React Transition Group
 
-## 
+React Transition Group has a few exports. We'll be using the ```Transition``` component. If we have a ```BaseComponent``` that we want to add transitions to, we wrap it in ```Transition``` as follows:
 
-add selected prop, and then: 
+```html
+   <Transition in={boolean} timeout={milliseconds} >
+       { transition_state => (
+           <BaseComponent>
+       )}
+   </Transition>
+```
 
-transition: top 0.2s ease;
-top: ${props => props.selected ? '50%' : '-50%'};
+While ```Transition``` can accept many props, ```in``` and ```timeout``` are essential. The transition moves between four states:
 
+1. ```"entering"``` -- when ```in``` is true and ```timeout``` hasn't elapsed.
+2. ```"entered"``` -- when ```in``` is true and ```timeout``` has elapsed.
+3. ```"exiting"``` -- when ```in``` is false and ```timeout``` hasn't elapsed.
+4. ```"exited"``` -- when ```in``` is true and ```timeout``` has elapsed.
 
+The current state gets passed in the ```transition_state``` variable and can be passed to ```BaseComponent``` as a prop.
 
-
-## 
-
-<Transition in={selected} timeout={100} mountOnEnter unmountOnExit >
-    { transition_state => (
-        <BaseComponent>
-    )}
-</Transition>
-
-Add Transition state to Container in Base Component
-
-
-
-
-
-
-
+Note: the only child of ```Transition``` is a function. This may look weird, but it's actually a common React technique called the Render Props Pattern. If you're curious about why this works, it's worth looking into the pattern as it's used in other contexts.
 
 
 
@@ -165,6 +180,4 @@ z-index: ${props => props.transition_state === "exiting" ? 1 : 2};
 
 
 
-
-<TeamNumber onTeam={teamPosition > -1 }>{teamPosition > -1 ? teamPosition + 1 : null}</TeamNumber>
    
