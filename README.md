@@ -51,7 +51,6 @@ and then use this component in my JSX:
 The syntax used by the ```styled``` import may be unfamiliar. Styled components uses tagged template literals, which are part of ES6. The details are a bit complicated, but basically what's going on is that ```styled.div``` is a function that expects a string as an argument--in this case, everything in the ``` `` ```. The function returns a component that gets stored in ```RedSquare```.
 
 
-
 ## Nested Syntax
 
 Styled components supports SASS-inspired nested syntax. For example, if we want the ```ListedPokemon``` to lift up on hover, all we have to is put this code in the ```Frame``` styled component:
@@ -66,23 +65,28 @@ Styled components supports SASS-inspired nested syntax. For example, if we want 
 
 Here, the ```&``` symbol is working like ```this```, so the declaration says that whenever the use hovers over this component, it should get a bit bigger and have a shadow.
 
-    
-
 
 ## Passing Props to Styled Components
 
+We can pass props to a Styled Component to adjust its style.
 
-Styles based on data
+One use case is stylizing data. Let's say we want to style each ```ListedPokemon``` component based on the pokemon's types. We already have two functions to help with this: ```colorOfType``` returns a color for each type of pokemon and ```gradientForTypes``` returns a solid color for an array of one type and a gradient for an array of two types. To use these, add this to the ```Frame``` component:
 
-Pass types as prop
-and then:
-background: ${props => gradientForTypes(props.types)};
+```
+    background: ${props => gradientForTypes(props.types)};
+```
 
-Pass type as prop, and then: 
-color: ${props => colorOfType(props.type)};
+and this to the ```PokemonType``` component:
 
+```
+    color: ${props => colorOfType(props.type)};
+```
 
+Now if we pass a types prop to ```Frame``` and a type prop to ```PokemonType``` the colors should show up.
 
+Notice that we interpolate *functions* from props onto string values. This is just how Styled Components is built to work. We couldn't just reference something like ```props.types``` directly, since props aren't defined in the context where we define a Styled Component.
+
+We can also style UI related state this way, such as the currently selected pokemon. 
 
 
 
