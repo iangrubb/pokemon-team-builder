@@ -46,7 +46,7 @@ const Frame = styled.div`
     }
 
     /* Shift the selected item right */
-    transform: ${props => props.selected ? 'translateX(5%)' : null};
+    ${props => props.selected ? 'transform: translateX(5%);' : null}
 
     /* Allows absolute placement of team number */
     position: relative;
