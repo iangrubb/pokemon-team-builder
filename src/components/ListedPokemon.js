@@ -10,14 +10,13 @@ export default function ListedPokemon(props) {
     const { types, level, species, clickHandler, selected, teamPosition } = props
 
     return (
-        <Frame types={types} onClick={clickHandler} selected={selected}>
-            <Body selected={selected}>
+        <Frame types={types} onClick={clickHandler}>
+            <Body>
                 <PokemonLevel>{level}</PokemonLevel>
                 <h3>{species}</h3>
-                {types.map((type, idx) => <PokemonType key={idx} type={type}>{type}</PokemonType>)}
+                {types.map((type, idx) => <PokemonType key={idx} >{type}</PokemonType>)}
                 <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${species}.gif`} alt={species} />
             </Body>
-            {/* <TeamNumber onTeam={teamPosition > -1 }>{teamPosition > -1 ? teamPosition + 1 : null}</TeamNumber> */}
         </Frame>
     )
 }
@@ -38,16 +37,6 @@ const Frame = styled.div`
     /* Makes card look clickable */
     cursor: pointer;
 
-    /* Hover styling */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    &:hover {
-        transform: scale(1.15);
-        box-shadow: var(--diffuse-shadow);
-    }
-
-    /* Shift the selected item right */
-    transform: ${props => props.selected ? 'translateX(5%)' : null};
-
     /* Allows absolute placement of team number */
     position: relative;
 `
@@ -59,14 +48,7 @@ const Body = styled.div`
     height: 100%;
     background: var(--main-ui-color);
     border-radius: 8px;
-
-    /* Makes arrow when pokemon is selected */
-    transition: clip-path 0.2s ease;
-    clip-path: ${props => props.selected ?
-        'polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%)' :
-        'polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%)'
-    };
-    
+       
     /* Positioning for children */
     display: flex;
     flex-direction: column;
@@ -82,7 +64,6 @@ const PokemonLevel = styled.h4`
     top: 50%;
     left: 4%;
     transform: translateY(-50%);
-    z-index: -1;
 
     /* Puts the level in a circle */
     background: var(--contrast-ui-color);
@@ -102,7 +83,6 @@ const PokemonGIF = styled.img`
     top: 50%;
     right: 3%;
     transform: translateY(-50%);
-    z-index: -1;
 
     /* Sets size of gif */
     width: 20%;
@@ -111,7 +91,6 @@ const PokemonGIF = styled.img`
 const PokemonType = styled.h4`
 
     /* Use a darkened version of the color that corresponds to the type */
-    color: ${props => colorOfType(props.type)};
     filter: var(--contrast-filter);
 `
 

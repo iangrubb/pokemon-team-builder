@@ -14,25 +14,22 @@ export default function DisplayedPokemon(props) {
     
     return (
 
-        <Transition in={selected} timeout={100} mountOnEnter unmountOnExit >
-            { transition_state => (
-                <Container selected={selected} transition_state={transition_state} onClick={clickHandler}>
-                    <PokemonBasics >
-                        <h2>{species}</h2>
-                        <h4>Lv. {level}</h4>
-                        <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${species}.gif`} alt={species}/>
-                        <Types>
-                            {types.map((type, idx) => <Type key={idx} type={type}>{type}</Type>)}
-                        </Types>
-                    </PokemonBasics>
-                    <PokemonStatsFrame types={types}>
-                        <PokemonStats>
-                            { Object.keys(stats).map((stat, idx) => <StatBar key={idx} stat={stat} value={stats[stat]} types={types} />) }
-                        </PokemonStats>
-                    </PokemonStatsFrame>
-                </Container>
-            )}
-        </Transition>
+        <Container onClick={clickHandler}>
+            <PokemonBasics >
+                <h2>{species}</h2>
+                <h4>Lv. {level}</h4>
+                <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${species}.gif`} alt={species}/>
+                <Types>
+                    {types.map((type, idx) => <Type key={idx} type={type}>{type}</Type>)}
+                </Types>
+            </PokemonBasics>
+            <PokemonStatsFrame types={types}>
+                <PokemonStats>
+                    { Object.keys(stats).map((stat, idx) => <StatBar key={idx} stat={stat} value={stats[stat]} types={types} />) }
+                </PokemonStats>
+            </PokemonStatsFrame>
+        </Container>
+            
     )
 }
 
@@ -69,10 +66,9 @@ const Container = styled.div`
 
     /* Animates element within its parent */
     position: absolute;
-    top: ${props => transitionHandler(props.transition_state)};
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: top 0.2s ease;
 `
 
 const PokemonBasics = styled.div`

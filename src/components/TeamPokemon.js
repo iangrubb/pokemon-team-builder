@@ -10,18 +10,16 @@ export default function TeamPokemon(props) {
     const { species, level, types, position, clickHandler } = props
     
     return (
-        <Transition in={position > -1} timeout={200} mountOnEnter unmountOnExit>
-            {transition_state => (
-                <Container position={position} onClick={clickHandler} transition_state={transition_state}>
-                    <h3>{species}</h3>
-                    <h5>Lv. {level}</h5>
-                    <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/back-normal/${species}.gif`} alt={species}/>
-                    <Types>
-                        {types.map((type, idx) => <Type key={idx} type={type}>{type}</Type>)}
-                    </Types>
-                </Container>
-            )}
-        </Transition>
+       
+        <Container position={position} onClick={clickHandler}>
+            <h3>{species}</h3>
+            <h5>Lv. {level}</h5>
+            <PokemonGIF src={`https://img.pokemondb.net/sprites/black-white/anim/back-normal/${species}.gif`} alt={species}/>
+            <Types>
+                {types.map((type, idx) => <Type key={idx} type={type}>{type}</Type>)}
+            </Types>
+        </Container>
+            
     )
 }
 
@@ -54,8 +52,7 @@ const Container = styled.div`
     transition: left 0.2s ease;
     position: absolute;
     top: 10%;
-    left: ${props => transitionHandler(props.transition_state, props.position)};
-    z-index: ${props => props.transition_state === "exiting" ? 1 : 2};
+    left: 3%;
 
     /* Centered column layout for children */
     display: flex;

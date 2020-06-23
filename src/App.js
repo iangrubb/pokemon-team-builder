@@ -77,7 +77,7 @@ export default class App extends Component {
             )}
           </PokemonList>
           <PokemonDisplay>
-            {/* {pokemonData.map(pokemon =>
+            {/* {pokemonData.slice(0, 1).map(pokemon =>
               <DisplayedPokemon
                 key={pokemon.id}
                 {...pokemon}
@@ -87,7 +87,7 @@ export default class App extends Component {
             )} */}
           </PokemonDisplay>
           <PokemonTeam>
-            {/* {pokemonData.map(pokemon => 
+            {/* {pokemonData.slice(0, 1).map(pokemon => 
               <TeamPokemon
                 key={pokemon.id}
                 {...pokemon}
